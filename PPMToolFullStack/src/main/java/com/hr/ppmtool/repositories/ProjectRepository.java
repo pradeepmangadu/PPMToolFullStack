@@ -3,13 +3,13 @@ package com.hr.ppmtool.repositories;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.hr.ppmtool.domain.Product;
+import com.hr.ppmtool.domain.Project;
 
 @Repository
-public interface ProjectRepository extends CrudRepository<Product, Long>{
+public interface ProjectRepository extends CrudRepository<Project, Long>{
 
 	@Override
-	default Iterable<Product> findAllById(Iterable<Long> ids) {
+	default Iterable<Project> findAllById(Iterable<Long> ids) {
 		// TODO Auto-generated method stub
 		return null;
 	}

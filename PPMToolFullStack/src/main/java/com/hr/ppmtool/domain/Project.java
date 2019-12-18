@@ -10,21 +10,21 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
 @Entity
-public class Product {
+public class Project {
 
 	@Id
 	@GeneratedValue(strategy =GenerationType.IDENTITY)
 	private Long id;
 	private String projectName;
 	private String project_Id;
-	private String decription;
+	private String description;
 	private Date start_date;
 	private Date end_date;
 	
 	private Date created_at;
 	private Date updated_at;
 	
-	public Product() {
+	public Project() {
  
 	}
 
@@ -52,12 +52,12 @@ public class Product {
 		this.project_Id = project_Id;
 	}
 
-	public String getDecription() {
-		return decription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDecription(String decription) {
-		this.decription = decription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Date getStart_date() {
