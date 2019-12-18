@@ -27,7 +27,7 @@ public class Project {
 	@NotBlank(message="Project ID is Required")
 	@Size(min=4,max=5, message="Please use 4 to 5 characters")
 	@Column(updatable = false,unique = true)
-	private String project_Id;
+	private String projectId;
 	
 	@NotBlank(message="Project Description is Required")
 	private String description;
@@ -64,12 +64,12 @@ public class Project {
 		this.projectName = projectName;
 	}
 
-	public String getProject_Id() {
-		return project_Id;
+	public String getProjectId() {
+		return projectId;
 	}
 
-	public void setProject_Id(String project_Id) {
-		this.project_Id = project_Id;
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
 	}
 
 	public String getDescription() {

@@ -16,13 +16,22 @@ public class ProjectService {
 	public Project saveOrUpdate(Project project) {
 		
 		try {
-			project.setProject_Id(project.getProject_Id().toUpperCase());
+			project.setProjectId(project.getProjectId().toUpperCase());
 			return projectRepository.save(project);
 		}
 		catch(Exception e) {
-			throw new ProjectIdException("Project ID '"+project.getProject_Id().toUpperCase()+"' Already Exists");
+			throw new ProjectIdException("Project ID '"+project.getProjectId().toUpperCase()+"' Already Exists");
 		}
 		
+	}
+	
+	public Project findProjectByIdentifier(String projectId) {
+		
+		Project project =projectRepository.findByprojectId(projectId.toUpperCase());
+		if(project == null) {
+			throw new ProjectIdException("Project ID '"+ projectId+"' does not exist");
+		}
+		return project;
 	}
 
 }

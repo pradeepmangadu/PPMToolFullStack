@@ -2,7 +2,6 @@ package com.hr.ppmtool.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
 import com.hr.ppmtool.domain.Project;
 
 @Repository
@@ -13,6 +12,8 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	
+    Project findByprojectId(String ProjectId);
 	 
 }
