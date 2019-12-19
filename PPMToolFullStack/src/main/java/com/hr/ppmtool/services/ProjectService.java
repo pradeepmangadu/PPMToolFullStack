@@ -45,7 +45,7 @@ public class ProjectService {
 		}
 		else {
 			projectRepository.delete(project);
-		}
-		 
+		}		 
 	}
+	
 }
