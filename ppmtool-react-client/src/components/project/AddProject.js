@@ -21,7 +21,7 @@ class AddProject extends Component {
   }
 
   //life cycle hooks
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
