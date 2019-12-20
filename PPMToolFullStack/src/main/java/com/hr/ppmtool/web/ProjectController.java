@@ -27,7 +27,7 @@ import com.hr.ppmtool.services.ProjectService;
 
 @RestController
 @RequestMapping("/api/project")
-@CrossOrigin
+@CrossOrigin //Added to Integrate SpringBoot with REACT
 public class ProjectController {
 
 	@Autowired
