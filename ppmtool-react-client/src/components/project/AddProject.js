@@ -40,7 +40,7 @@ class AddProject extends Component {
       start_date: this.state.start_date,
       end_date: this.state.end_date
     };
-    this.props.createProject(newProject, this.props.history);
+    this.props.getProject(newProject, this.props.history);
   }
   render() {
     const { errors } = this.state;
