@@ -1,9 +1,14 @@
 package com.hr.ppmtool.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Backlog {
@@ -12,11 +17,13 @@ public class Backlog {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long id;
 private Integer PTSequence =0;
-private String projectId;
-
-
+private String projectIdentifier;
 
 //OneToOne with project
+@OneToOne(fetch = FetchType.EAGER)
+@JoinColumn(name="project_id",nullable=false)
+@JsonIgnore
+private Project project;
 
 //OnetoMany projecttasks
 
@@ -44,20 +51,33 @@ public Integer getPTSequence() {
 
 
 
-public void setPTSequence(Integer pTSequence) {
-	PTSequence = pTSequence;
+public void setPTSequence(Integer PTSequence) {
+	this.PTSequence = PTSequence;
 }
 
 
 
-public String getProjectId() {
-	return projectId;
+
+public Project getProject() {
+	return project;
 }
 
 
 
-public void setProjectId(String projectId) {
-	this.projectId = projectId;
+public void setProject(Project project) {
+	this.project = project;
+}
+
+
+
+public String getProjectIdentifier() {
+	return projectIdentifier;
+}
+
+
+
+public void setProjectIdentifier(String projectIdentifier) {
+	this.projectIdentifier = projectIdentifier;
 }
 
 

@@ -8,6 +8,7 @@ import com.hr.ppmtool.domain.Backlog;
 @Repository
 public interface BacklogRespository extends CrudRepository<Backlog, Long> {
 	
+	Backlog findByProjectIdentifier(String projectIdentifier);
 	
 
 }
