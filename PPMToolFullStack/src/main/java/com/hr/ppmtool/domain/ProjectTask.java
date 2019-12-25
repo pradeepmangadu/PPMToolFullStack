@@ -31,7 +31,7 @@ public class ProjectTask {
     private String acceptanceCriteria;
     private String status;
     private Integer priority;
-    private Date dueDate;
+	private Date dueDate;
     
     //ManytoOne with Backlog
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.REFRESH)

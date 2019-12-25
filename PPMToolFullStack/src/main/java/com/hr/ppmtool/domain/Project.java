@@ -21,39 +21,39 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Project {
 
 	@Id
-	@GeneratedValue(strategy =GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotBlank(message="Project Name is Required")
+
+	@NotBlank(message = "Project Name is Required")
 	private String projectName;
-	
-	@NotBlank(message="Project ID is Required")
-	@Size(min=4,max=5, message="Please use 4 to 5 characters")
-	@Column(updatable = false,unique = true)
+
+	@NotBlank(message = "Project ID is Required")
+	@Size(min = 4, max = 5, message = "Please use 4 to 5 characters")
+	@Column(updatable = false, unique = true)
 	private String projectId;
-	
-	@NotBlank(message="Project Description is Required")
+
+	@NotBlank(message = "Project Description is Required")
 	private String description;
-	
+
 	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date start_date;
-	
+
 	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date end_date;
-	
+
 	@JsonFormat(pattern = "yyyy-mm-dd")
 	@Column(updatable = false)
 	private Date created_at;
-	
+
 	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date updated_at;
-	
-	@OneToOne(fetch=FetchType.EAGER,cascade= CascadeType.ALL,mappedBy="project")
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
 	//
 	private Backlog backlog;
-	
+
 	public Project() {
- 
+
 	}
 
 	public Long getId() {
@@ -120,7 +120,6 @@ public class Project {
 		this.updated_at = updated_at;
 	}
 
-
 	public Backlog getBacklog() {
 		return backlog;
 	}
@@ -130,13 +129,13 @@ public class Project {
 	}
 
 	@PrePersist
-	protected void onCreate(){
-		this.created_at= new Date();
+	protected void onCreate() {
+		this.created_at = new Date();
 	}
-	
+
 	@PreUpdate
-	protected void onUpdate(){
-		this.updated_at= new Date();
+	protected void onUpdate() {
+		this.updated_at = new Date();
 	}
-	
+
 }
