@@ -65,4 +65,9 @@ public class ProjectTaskService {
 
 		return projectTaskRepository.findByProjectIdOrderByPriority(Id);
 	}
+
+	public ProjectTask findPTByProjectSequence(String backlog_id, String pt_id) {
+//make sure we are searching right projectTask
+		return projectTaskRepository.findByProjectSequence(pt_id);
+	}
 }

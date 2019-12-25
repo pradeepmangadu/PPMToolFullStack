@@ -19,36 +19,34 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class ProjectTask {
-	
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-    @Column(updatable = false)
-    private String projectSequence;
-    @NotBlank(message ="Please include a project Summary")
-    private String summary;
-    private String acceptanceCriteria;
-    private String status;
-    private Integer priority;
+	@Column(updatable = false, unique = true)
+	private String projectSequence;
+	@NotBlank(message = "Please include a project Summary")
+	private String summary;
+	private String acceptanceCriteria;
+	private String status;
+	private Integer priority;
 	private Date dueDate;
-    
-    //ManytoOne with Backlog
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.REFRESH)
-    @JoinColumn(name="backlog_id",nullable=false,updatable = false)
-    @JsonIgnore
-    private Backlog backlog;
-    @Column(updatable = false)
-    private String projectId;
-    private Date created_At;
-    private Date updated_At;
-    
-    public ProjectTask() {
-    	// TODO Auto-generated constructor stub
-    }
-    
-    
-    public Long getId() {
+
+	// ManytoOne with Backlog
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "backlog_id", nullable = false, updatable = false)
+	@JsonIgnore
+	private Backlog backlog;
+	@Column(updatable = false)
+	private String projectId;
+	private Date created_At;
+	private Date updated_At;
+
+	public ProjectTask() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Long getId() {
 		return id;
 	}
 
@@ -127,48 +125,33 @@ public class ProjectTask {
 	public void setUpdated_At(Date updated_At) {
 		this.updated_At = updated_At;
 	}
-	
-	
-    
-    public Backlog getBacklog() {
+
+	public Backlog getBacklog() {
 		return backlog;
 	}
-
 
 	public void setBacklog(Backlog backlog) {
 		this.backlog = backlog;
 	}
 
-
 	@PrePersist
-    protected void onCreate() {
-    this.created_At= new Date();
-    }
+	protected void onCreate() {
+		this.created_At = new Date();
+	}
 
 	@PreUpdate
-    protected void onUpdate(){
-    this.updated_At= new Date();
-    }
-    
-	
+	protected void onUpdate() {
+		this.updated_At = new Date();
+	}
+
 	@Override
 	public String toString() {
 
-		return "ProjectTask{"+
-		"id:"+ id+
-		",projectSequence:"+ projectSequence+
-		",summary:" + summary+
-		",acceptanceCriteria:"+ acceptanceCriteria+
-		",status:"+ status+
-		",priority:"+ priority+
-		",dueDate:"+ dueDate+
-		",projectId:"+ projectId+
-		",created_At:"+ created_At+
-		"updated_At:"+ updated_At+
-		"}"
-		;
-		
+		return "ProjectTask{" + "id:" + id + ",projectSequence:" + projectSequence + ",summary:" + summary
+				+ ",acceptanceCriteria:" + acceptanceCriteria + ",status:" + status + ",priority:" + priority
+				+ ",dueDate:" + dueDate + ",projectId:" + projectId + ",created_At:" + created_At + "updated_At:"
+				+ updated_At + "}";
+
 	}
 
-    
 }
