@@ -2,7 +2,6 @@ package com.hr.ppmtool.domain;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,7 +32,7 @@ public class ProjectTask {
 	private Date dueDate;
 
 	// ManytoOne with Backlog
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "backlog_id", nullable = false, updatable = false)
 	@JsonIgnore
 	private Backlog backlog;
