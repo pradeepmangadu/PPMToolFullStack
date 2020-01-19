@@ -28,5 +28,8 @@ export default function(state = initialState, action) {
         ...state
         //TO-DO
       };
+
+    default:
+      return state;
   }
 }
