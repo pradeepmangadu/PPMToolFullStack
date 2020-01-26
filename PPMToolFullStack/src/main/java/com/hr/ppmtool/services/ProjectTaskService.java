@@ -44,8 +44,9 @@ public class ProjectTaskService {
 			throw new ProjectNotFoundException("Project Not Found");
 		}
 
-		if (projectTask.getPriority() == null) { // In the future we need to add this condition
-													// projectTask.getPriority()==0||
+		if (projectTask.getPriority() == 0 || projectTask.getPriority() == null) { // In the future we need to add this
+																					// condition
+			// projectTask.getPriority()==0||
 			projectTask.setPriority(3);
 		}
 
