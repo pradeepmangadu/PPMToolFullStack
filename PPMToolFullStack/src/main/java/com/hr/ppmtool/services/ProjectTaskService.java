@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hr.ppmtool.domain.Backlog;
-import com.hr.ppmtool.domain.Project;
 import com.hr.ppmtool.domain.ProjectTask;
 import com.hr.ppmtool.exceptions.ProjectNotFoundException;
 import com.hr.ppmtool.repositories.BacklogRespository;
@@ -23,28 +22,28 @@ public class ProjectTaskService {
 	@Autowired
 	ProjectRepository projectRepository;
 
-	public ProjectTask addProjectTask(String projectIdentifier, ProjectTask projectTask) {
+	@Autowired
+	private ProjectService projectService;
 
-		// PTs to be addded to a specific project,project !=null,BL exists
-		try {
-			Backlog backlog = backlogRespository.findByProjectIdentifier(projectIdentifier);
-			// set BL to Project
-			projectTask.setBacklog(backlog);
-			// we want our project sequence to be like IDPRO-1 IDPRO-2
-			Integer BacklogSequence = backlog.getPTSequence();
-			// Update the BL SEQUENCE
-			BacklogSequence++;
+	public ProjectTask addProjectTask(String projectIdentifier, ProjectTask projectTask, String username) {
 
-			backlog.setPTSequence(BacklogSequence);
-			// Add Sequence to Project Task
-			projectTask.setProjectSequence(backlog.getProjectIdentifier() + "-" + BacklogSequence);
-			projectTask.setProjectId(projectIdentifier);
-			// Initial Priority when priority null
-		} catch (Exception e) {
-			throw new ProjectNotFoundException("Project Not Found");
-		}
+		// PTs to be added to a specific project,project !=null,BL exists
 
-		if (projectTask.getPriority() == 0 || projectTask.getPriority() == null) { // In the future we need to add this
+		Backlog backlog = projectService.findProjectByIdentifier(projectIdentifier, username).getBacklog();// backlogRespository.findByProjectIdentifier(projectIdentifier);
+		// set BL to Project
+		projectTask.setBacklog(backlog);
+		// we want our project sequence to be like IDPRO-1 IDPRO-2
+		Integer BacklogSequence = backlog.getPTSequence();
+		// Update the BL SEQUENCE
+		BacklogSequence++;
+
+		backlog.setPTSequence(BacklogSequence);
+		// Add Sequence to Project Task
+		projectTask.setProjectSequence(backlog.getProjectIdentifier() + "-" + BacklogSequence);
+		projectTask.setProjectId(projectIdentifier);
+		// Initial Priority when priority null
+
+		if (projectTask.getPriority() == null || projectTask.getPriority() == 0) { // In the future we need to add this
 																					// condition
 			// projectTask.getPriority()==0||
 			projectTask.setPriority(3);
@@ -58,12 +57,8 @@ public class ProjectTaskService {
 
 	}
 
-	public Iterable<ProjectTask> findBacklogById(String Id) {
-		Project project = projectRepository.findByprojectId(Id);
-		if (project == null) {
-			throw new ProjectNotFoundException("Project with ID:'" + Id + "' doesn't exists");
-		}
-
+	public Iterable<ProjectTask> findBacklogById(String Id, String username) {
+		projectService.findProjectByIdentifier(Id, username);
 		return projectTaskRepository.findByProjectIdOrderByPriority(Id);
 	}
 
