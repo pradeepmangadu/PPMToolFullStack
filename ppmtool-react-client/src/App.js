@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
-import Header from "./components/Header";
+import Header from "./components/Layout/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import AddProject from "./components/project/AddProject";
@@ -11,6 +11,9 @@ import UpdateProject from "./components/project/UpdateProject";
 import ProjectBoard from "./components/ProjectBoard/ProjectBoard";
 import AddProjectTask from "./components/ProjectBoard/ProjectTasks/AddProjectTask";
 import UpdateProjectTask from "./components/ProjectBoard/ProjectTasks/UpdateProjectTask";
+import Landing from "./components/Layout/Landing";
+import Register from "./components/UserManagement/Register";
+import Login from "./components/UserManagement/Login";
 
 function App() {
   return (
@@ -18,6 +21,15 @@ function App() {
       <Router>
         <div className="App">
           <Header></Header>
+          {
+            //public Routes
+          }
+          <Route exact path="/" component={Landing}></Route>
+          <Route exact path="/register" component={Register}></Route>
+          <Route exact path="/login" component={Login}></Route>
+          {
+            //private Routes
+          }
           <Route exact path="/dashboard" component={Dashboard}></Route>
           <Route exact path="/addProject" component={AddProject}></Route>
           <Route
