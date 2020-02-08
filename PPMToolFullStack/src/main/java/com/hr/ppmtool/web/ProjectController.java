@@ -1,17 +1,13 @@
 package com.hr.ppmtool.web;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.security.Principal;
 
-import javax.naming.Binding;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,39 +23,43 @@ import com.hr.ppmtool.services.ProjectService;
 
 @RestController
 @RequestMapping("/api/project")
-@CrossOrigin //Added to Integrate SpringBoot with REACT
+@CrossOrigin // Added to Integrate SpringBoot with REACT
 public class ProjectController {
 
 	@Autowired
 	private ProjectService projectService;
-	
+
 	@Autowired
 	private MapValidationErrorService mapValidationErrorService;
 
 	@PostMapping("")
-	public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result) {
-		
-		ResponseEntity<?> errorMap= mapValidationErrorService.MapValidationService(result);
-		if(errorMap!=null) return errorMap;
-		
-		Project project1 = projectService.saveOrUpdate(project);
+	public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result,
+			Principal principal) {
+
+		ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+		if (errorMap != null)
+			return errorMap;
+
+		Project project1 = projectService.saveOrUpdate(project, principal.getName());
 		return new ResponseEntity<Project>(project, HttpStatus.CREATED);
 	}
+
 	@GetMapping("/{projectId}")
-	public ResponseEntity<?> getProjectById(@PathVariable String projectId){	
-		Project project= projectService.findProjectByIdentifier(projectId);
-		return new ResponseEntity<Project>(project,HttpStatus.OK);
-		
+	public ResponseEntity<?> getProjectById(@PathVariable String projectId) {
+		Project project = projectService.findProjectByIdentifier(projectId);
+		return new ResponseEntity<Project>(project, HttpStatus.OK);
+
 	}
+
 	@GetMapping("/all")
-	public Iterable<Project> getAllProjects(){
+	public Iterable<Project> getAllProjects() {
 		return projectService.findAllProjects();
 	}
-	
+
 	@DeleteMapping("/{projectId}")
-	public ResponseEntity<?> deleteProjectById(@PathVariable String projectId){
+	public ResponseEntity<?> deleteProjectById(@PathVariable String projectId) {
 		projectService.deleteProjectById(projectId);
-		return new ResponseEntity<String>("Project with ID '"+projectId+"' is deleted",HttpStatus.OK);
+		return new ResponseEntity<String>("Project with ID '" + projectId + "' is deleted", HttpStatus.OK);
 	}
-	
+
 }

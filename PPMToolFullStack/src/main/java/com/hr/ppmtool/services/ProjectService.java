@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 
 import com.hr.ppmtool.domain.Backlog;
 import com.hr.ppmtool.domain.Project;
+import com.hr.ppmtool.domain.User;
 import com.hr.ppmtool.exceptions.ProjectIdException;
 import com.hr.ppmtool.repositories.BacklogRespository;
 import com.hr.ppmtool.repositories.ProjectRepository;
+import com.hr.ppmtool.repositories.UserRepository;
 
 @Service
 public class ProjectService {
@@ -18,9 +20,17 @@ public class ProjectService {
 	@Autowired
 	private BacklogRespository backlogRespository;
 
-	public Project saveOrUpdate(Project project) {
+	@Autowired
+
+	private UserRepository userRepository;
+
+	public Project saveOrUpdate(Project project, String username) {
 
 		try {
+
+			User user = userRepository.findByUsername(username);
+			project.setUser(user);
+			project.setProjectLeader(user.getUsername());
 			project.setProjectId(project.getProjectId().toUpperCase());
 			if (project.getId() == null) {
 				Backlog backlog = new Backlog();
